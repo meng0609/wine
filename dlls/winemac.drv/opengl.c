@@ -2387,6 +2387,13 @@ static struct wgl_context *macdrv_wglCreateContextAttribsARB(HDC hdc,
         }
     }
 
+    if (3 == major && minor <= 1) { // force down OpenGL version
+        major   = 2;
+        minor   = 1;
+        flags  &= ~WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB;
+        profile&= ~WGL_CONTEXT_CORE_PROFILE_BIT_ARB;
+    }
+
     if ((major == 3 && (minor == 2 || minor == 3)) ||
         (major == 4 && (minor == 0 || minor == 1)))
     {
